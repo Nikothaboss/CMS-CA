@@ -21,11 +21,16 @@ const productTemplate =(products)=>{
     container.innerHTML = "";
     for(product of products){
         console.log(product)
-        let productDiv = `
-        <ul>
+        let productDiv = ``
+        for(image of product.images){
+            productDiv += `
+            <ul class="card">
             <li>${product.name}</li>
-        </ul>
-        `
+            <a href="single-product.html/id=${product.id}"><img src="${image.src}"></a>
+            <p>£${product.prices.price}</p>
+            <button>View</button>
+            </ul> `
+        }
         container.innerHTML += productDiv
     }
 }
