@@ -26,7 +26,7 @@ const productTemplate =(products)=>{
             productDiv += `
             <ul class="card">
             <li>${product.name}</li>
-            <a href="single-product.html/id=${product.id}"><img src="${image.src}"></a>
+            <a href="single-product.html?id=${product.id}"><img src="${image.src}"></a>
             <p>£${product.prices.price}</p>
             <button>View</button>
             </ul> `
