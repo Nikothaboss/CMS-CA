@@ -1,8 +1,4 @@
-
-
 const container = document.querySelector(".products")
-
-
 
 const url = `https://nikolaireedlarsen.no/wp-json/wc/store/products/` 
 
@@ -25,9 +21,9 @@ const productTemplate =(products)=>{
         for(image of product.images){
             productDiv += `
             <ul class="card">
-            <li>${product.name}</li>
             <a href="single-product.html?id=${product.id}"><img src="${image.src}"></a>
-            <p>£${product.prices.price}</p>
+            <li>${product.name}</li>
+            <p>${product.prices.currency_prefix}${product.prices.price}</p>
             <button>View</button>
             </ul> `
         }
