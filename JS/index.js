@@ -21,10 +21,10 @@ const productTemplate =(products)=>{
         for(image of product.images){
             productDiv += `
             <ul class="card">
-            <a href="single-product.html?id=${product.id}"><img src="${image.src}"></a>
+            <a href="single-product.html?id=${product.id}" class="card-link"><img src="${image.thumbnail}"></a>
             <li>${product.name}</li>
             <p>${product.prices.currency_prefix}${product.prices.price}</p>
-            <button>View</button>
+            <a href="single-product.html?id=${product.id}" class="btn">View</a>
             </ul> `
         }
         container.innerHTML += productDiv

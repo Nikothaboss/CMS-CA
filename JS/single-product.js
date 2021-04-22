@@ -24,7 +24,7 @@ const singleProductTemplate =(product)=>{
     container.innerHTML = "";
     let productDiv = ``;
     for(image of product.images){
-        console.log(image)
+        console.log(image);
         productDiv += `
         <div class="single-product">
             <div class="product-image">
