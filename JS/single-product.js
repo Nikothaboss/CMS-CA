@@ -27,14 +27,17 @@ const singleProductTemplate =(product)=>{
         console.log(image);
         productDiv += `
         <div class="single-product">
-            <div class="product-image">
+        
                 <img src="${image.src}">
-            </div>
+            
             <div class="product-info-box">
                 <h2>${product.name}</h2>
-                ${product.short_description}
-                ${product.description}
-                <h3>${product.prices.currency_prefix}${product.prices.price}</h3>
+                <div class="info-text">
+                    ${product.short_description}
+                    ${product.description}
+                </div>
+                <h3 class="single-prod-price">${product.prices.currency_prefix}${product.prices.price}</h3>
+                <a class="btn" href="#">Add to cart</a>
             </div>
         </div>
         `
