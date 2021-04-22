@@ -36,6 +36,7 @@ const singleProductTemplate =(product)=>{
                     ${product.short_description}
                     ${product.description}
                 </div>
+                <p class="in-stock">${product.is_in_stock ? "Product in stock": "Sold Out"}
                 <h3 class="single-prod-price">${product.prices.currency_prefix}${product.prices.price}</h3>
                 <a class="btn" href="#">Add to cart</a>
             </div>
