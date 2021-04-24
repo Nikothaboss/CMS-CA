@@ -2,10 +2,12 @@ const getQs = document.location.search;
 const params = new URLSearchParams(getQs);
 const id = params.get("id");
 
+
 console.log(id)
 
 const url = `https://nikolaireedlarsen.no/wp-json/wc/store/products/${id}`
 const container = document.querySelector(".product")
+const loading = document.querySelector(".loading")
 
 fetch(url, {
 	"method": "GET",
@@ -17,6 +19,7 @@ fetch(url, {
 .catch(err =>{
     console.error(err)
 })
+.finally(()=> loading.classList.remove("spinner-border"));
 
 const singleProductTemplate =(product)=>{
     console.log(product)
@@ -38,7 +41,7 @@ const singleProductTemplate =(product)=>{
                 </div>
                 <p class="in-stock">${product.is_in_stock ? "Product in stock": "Sold Out"}
                 <h3 class="single-prod-price">${product.prices.currency_prefix}${product.prices.price}</h3>
-                <a class="btn" href="#">Add to cart</a>
+                <a id="btn" href="#">Add to cart</a>
             </div>
         </div>
         `

@@ -2,10 +2,11 @@ const container = document.querySelector(".products")
 const sortBtn = document.querySelector(".sort")
 const sortBtnDown = document.querySelector(".descending")
 const sortBtnName = document.querySelector(".sortName")
+const loading = document.querySelector(".loading")
 
 const url = `https://nikolaireedlarsen.no/wp-json/wc/store/products/` 
 
-// ! Funksjon som fetcher data fra API og deretter kjører en valgt funksjon
+// ! Funksjon som fetcher data fra API og deretter kjører en valgt funksjon(param er valgfritt)
 const fetchData = (funcToRun, param = "") =>{
     fetch(url, {
         "method": "GET",
@@ -16,25 +17,10 @@ const fetchData = (funcToRun, param = "") =>{
     .catch(err =>{
         console.error(err)
     }) 
+    .finally(()=> loading.classList.remove("spinner-border"));
 } 
 
-
-
-// fetch(url, {
-// 	"method": "GET",
-	
-// })
-
-// .then(response => response.json())
-// .then(data => productTemplate(data))
-// .catch(err =>{
-//     console.error(err)
-// })
-
-
-
 // ! Standard produkt-template
-
 const productTemplate =(products)=>{
     container.innerHTML = "";
     for(product of products){
@@ -46,7 +32,7 @@ const productTemplate =(products)=>{
             <a href="single-product.html?id=${product.id}" class="card-link"><img src="${image.thumbnail}"></a>
             <li>${product.name}</li>
             <p>${product.prices.currency_prefix}${product.prices.price}</p>
-            <a href="single-product.html?id=${product.id}" class="btn">View</a>
+            <a href="single-product.html?id=${product.id}" id="btn" class="primary">View</a>
             </ul> `
         }
         container.innerHTML += productDiv
@@ -56,7 +42,6 @@ const productTemplate =(products)=>{
 fetchData(productTemplate)
 
 // ! Funksjon for å sortere produktene og vise de på siden
-
 const sortedProductTemplate=(products, sortBy)=>{
     container.innerHTML = ""
     products.sort(sortBy)
@@ -69,7 +54,7 @@ const sortedProductTemplate=(products, sortBy)=>{
             <a href="single-product.html?id=${product.id}" class="card-link"><img src="${image.thumbnail}"></a>
             <li>${product.name}</li>
             <p>${product.prices.currency_prefix}${product.prices.price}</p>
-            <a href="single-product.html?id=${product.id}" class="btn">View</a>
+            <a href="single-product.html?id=${product.id}" id="btn">View</a>
             </ul> `
         }
     }
@@ -77,8 +62,6 @@ const sortedProductTemplate=(products, sortBy)=>{
 }
 
 // ! Sorteringer, kan bli brukt med sortedProductTemplate
-
-
 const sortByPrice =(a,b)=>{
     var price1 = a.prices.price.toUpperCase()
     var price2 = b.prices.price.toUpperCase()
@@ -106,7 +89,6 @@ const sortByName =(a,b)=>{
 }
 
 // ! Events
-
 sortBtn.addEventListener("click", ()=>{
     fetchData(sortedProductTemplate, sortByPrice)
 })
