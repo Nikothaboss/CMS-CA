@@ -5,16 +5,33 @@ const sortBtnName = document.querySelector(".sortName")
 
 const url = `https://nikolaireedlarsen.no/wp-json/wc/store/products/` 
 
-fetch(url, {
-	"method": "GET",
-	
-})
+// ! Funksjon som fetcher data fra API og deretter kjører en valgt funksjon
+const fetchData = (funcToRun, param = "") =>{
+    fetch(url, {
+        "method": "GET",
+        
+    })
+    .then(response => response.json())
+    .then(data => funcToRun(data, param)) 
+    .catch(err =>{
+        console.error(err)
+    }) 
+} 
 
-.then(response => response.json())
-.then(data => productTemplate(data))
-.catch(err =>{
-    console.error(err)
-})
+
+
+// fetch(url, {
+// 	"method": "GET",
+	
+// })
+
+// .then(response => response.json())
+// .then(data => productTemplate(data))
+// .catch(err =>{
+//     console.error(err)
+// })
+
+
 
 // ! Standard produkt-template
 
@@ -36,6 +53,8 @@ const productTemplate =(products)=>{
     }
 }
 
+fetchData(productTemplate)
+
 // ! Funksjon for å sortere produktene og vise de på siden
 
 const sortedProductTemplate=(products, sortBy)=>{
@@ -54,10 +73,11 @@ const sortedProductTemplate=(products, sortBy)=>{
             </ul> `
         }
     }
-    sorted = container.innerHTML += productDiv
+    container.innerHTML += productDiv
 }
 
 // ! Sorteringer, kan bli brukt med sortedProductTemplate
+
 
 const sortByPrice =(a,b)=>{
     var price1 = a.prices.price.toUpperCase()
@@ -85,43 +105,19 @@ const sortByName =(a,b)=>{
     else return 0;
 }
 
-// ! Event som sorterer etter pris (høyest til lavest)
+// ! Events
 
 sortBtn.addEventListener("click", ()=>{
-    fetch(url, {
-        "method": "GET",
-    })
-    
-    .then(response => response.json())
-    .then(data => sortedProductTemplate(data, sortByPrice))
-    .catch(err =>{
-        console.error(err)
-    })
+    fetchData(sortedProductTemplate, sortByPrice)
 })
 
 
 sortBtnDown.addEventListener("click", ()=>{
-    fetch(url, {
-        "method": "GET",
-    })
-    
-    .then(response => response.json())
-    .then(data => sortedProductTemplate(data, sortByPriceDesc))
-    .catch(err =>{
-        console.error(err)
-    })
+    fetchData(sortedProductTemplate, sortByPriceDesc)
 })
 
 
 sortBtnName.addEventListener("click", ()=>{
-    fetch(url, {
-        "method": "GET",
-    })
-    
-    .then(response => response.json())
-    .then(data => sortedProductTemplate(data, sortByName))
-    .catch(err =>{
-        console.error(err)
-    })
+    fetchData(sortedProductTemplate, sortByName)
 })
 
